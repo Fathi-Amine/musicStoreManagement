@@ -1,0 +1,51 @@
+.page-body{
+    background-color: #00000050;
+    background-image: url(assets/gabriel-gurrola-2UuhMZEChdc-unsplash.jpg);
+    
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.nav-link.btn:focus, .nav-link.btn:hover{
+    color: #FFF;
+}
+
+a{
+    text-decoration: none;
+    color: #8A8A8A;
+}
+
+a:hover{
+    color: #8A8A8A;;
+}
+.intro-text{
+    font-size: 14px;
+}
+
+.logo{
+    width: 140px;
+}
+
+.signup-sec{
+    max-width: 960px;
+}
+
+.nav-item img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.email,
+.first,
+.last {
+    font-size: 12px;
+}
+
+.user-email .email{
+    margin: 0;
+}
+
+.box-icon{
+    max-width: 24px;
+}
