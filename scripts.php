@@ -120,6 +120,15 @@ function addInstrument(){
     $instrumentQuantity = validateInputs($_POST["instrumentQuantity"]);
     $instrumentDescription = validateInputs($_POST["instrumentDescription"]);
     $instrumentSeller = $_SESSION['userId'];
+    $instrumentImg = $_FILES["instrumentImg"];
+    $instrumentImg_dir = '';
+    if($instrumentImg && $instrumentImg["tmp_name"]){
+        $instrumentImg_dir = 'assets/'.generateName(10).'/'.$instrumentImg['name'];
+        mkdir(dirname($instrumentImg_dir));
+        move_uploaded_file($instrumentImg["tmp_name"], $instrumentImg_dir);
+    }else {
+        $instrumentImg_dir = 'assets/default-img.png';
+    }
 
     if(empty($_POST["instrumentName"]) || empty($_POST["category"]) || empty($_POST["instrumentBrand"]) || empty($_POST["instrumentPrice"]) || empty($_POST["instrumentQuantity"]) || empty($_POST["instrumentDescription"])){
         $_SESSION["errorAdding"] = "Product can't be added. All inputs must be filled";
@@ -127,8 +136,8 @@ function addInstrument(){
         exit();
     }
 
-    $adding_query = "INSERT INTO `instruments`(`instrument_name`, `brand`, `category`, `id_admin`, `price`, `quantity`, `description`)
-                         VALUES ('$instrumentName', '$instrumentBrand', '$instrumentCategory','$instrumentSeller', '$instrumentPrice', '$instrumentQuantity', '$instrumentDescription')";
+    $adding_query = "INSERT INTO `instruments`(`instrument_name`, `instrument_img`, `brand`, `category`, `id_admin`, `price`, `quantity`, `description`)
+                         VALUES ('$instrumentName','$instrumentImg_dir', '$instrumentBrand', '$instrumentCategory','$instrumentSeller', '$instrumentPrice', '$instrumentQuantity', '$instrumentDescription')";
     $res = mysqli_query($conn, $adding_query);
     header("location: dashboard.php");
 }
@@ -155,7 +164,15 @@ function deleteInstrument(){
     header("location: dashboard.php");
 }
 
-
+function generateName($n){
+    $char = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $name = '';
+    for($i=0; $i<$n; $i++){
+        $char_at_index = rand(0, strlen($char) - 1);
+        $name .= $char_at_index;
+    }
+    return $name;
+}
 
 
 ?>

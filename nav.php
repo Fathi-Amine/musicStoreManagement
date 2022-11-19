@@ -16,10 +16,10 @@
                         <a class="nav-link" href="#">Pricing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-info mt-2 mt-md-0 ms-lg-3 px-2" href="#">Sign-up</a>
+                        <a class="nav-link btn btn-info mt-2 mt-md-0 ms-lg-3 px-2" href="signup.php">Sign-up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link btn btn-outline-dark mt-3 mt-md-0 ms-lg-3 px-2" href="#">Login</a>
+                        <a class="nav-link btn btn-outline-dark mt-3 mt-md-0 ms-lg-3 px-2" href="login.php">Login</a>
                     </li>
                 </ul>
             </div>

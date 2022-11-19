@@ -49,3 +49,27 @@ a:hover{
 .box-icon{
     max-width: 24px;
 }
+
+/* <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="update(<?=$prod['id']?>)">edit</button> */
+
+/* .cards-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    flex-wrap: wrap;
+    justify-content: space-between;
+} */
+
+.content-card{
+    min-width: 24%;
+    cursor: pointer;
+}
+.top-half {
+    height: 200px;
+    background-image: url(assets/polygon-group-StUN27yM1mo-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.bottom-half{
+    background-color: white;
+}
