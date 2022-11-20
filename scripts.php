@@ -6,7 +6,7 @@ if(isset($_POST['signUp']))  signUp();
 if(isset($_POST['logIn']))  logIn();
 if(isset($_POST['addInstrument']))  addInstrument();
 if(isset($_POST['update']))  updateInstrument();
-if(isset($_GET['id']))  deleteInstrument();
+if(isset($_POST['delete']))  deleteInstrument();
 
 function validateInputs($input){
     $input = trim($input);
@@ -158,7 +158,7 @@ function updateInstrument(){
 }
 function deleteInstrument(){
     global $conn;
-    $id=$_GET['id'];
+    $id=$_POST["instrumentId"];
     $sql="DELETE FROM `instruments` WHERE id=$id";
     mysqli_query($conn,$sql);
     header("location: dashboard.php");
@@ -172,6 +172,16 @@ function generateName($n){
         $name .= $char_at_index;
     }
     return $name;
+}
+
+function getProducts(){
+    global $conn;
+    $userId=$_SESSION['userId'];
+    $last_added_query = "SELECT instruments.*, categories.name AS instrumentCategory FROM `instruments`
+    INNER JOIN categories ON categories.id = instruments.category  WHERE id_admin = $userId";
+    $res = mysqli_query($conn, $last_added_query);
+    $instruments = mysqli_fetch_all($res,MYSQLI_ASSOC);
+    return $instruments;
 }
 
 

@@ -28,7 +28,7 @@ if(!isset($_SESSION['firstName'])){
                         </li>
 
                         <li class="nav-item">
-                        <a class="nav-link btn btn-outline-light">Search</a>
+                        <a href="logout.php" class="nav-link btn btn-outline-light">Log out</a>
                         </li>
                     </ul>
                     </div>

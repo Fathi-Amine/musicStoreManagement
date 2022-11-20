@@ -52,24 +52,67 @@ a:hover{
 
 /* <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="update(<?=$prod['id']?>)">edit</button> */
 
-/* .cards-container{
+.cards-container{
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    flex-wrap: wrap;
-    justify-content: space-between;
-} */
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 20px;
+} 
 
 .content-card{
     min-width: 24%;
     cursor: pointer;
+    position: relative;
 }
 .top-half {
+    /* position: relative; */
+    z-index: 1;
     height: 200px;
     background-image: url(assets/polygon-group-StUN27yM1mo-unsplash.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    /* transform: translateY(50px);
+    transition: 0.5s; */
+    
 }
+
+/* .content-card:hover .top-half{
+    transform: translateY(0);
+} */
 .bottom-half{
+    z-index: -1;
     background-color: white;
+    padding: 12px;
+    /* transform: translateY(-181px); */
+    /* opacity: 0.4; */
+    transition: 0.5s;
+}
+/* .content-card:hover .bottom-half{
+    transform: translateY(0);
+    opacity: 1;
+} */
+
+.bottom-half h1{
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.bottom-half span.text-secondary{
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.description-text{
+    font-size: 0.925rem;
+    max-width: 200px;
+    margin-bottom: 0;
+    margin-top: 12px;
+    text-overflow: ellipsis;
+}
+
+.brand-span{
+    font-size: 12px;
+    font-weight: normal;
 }

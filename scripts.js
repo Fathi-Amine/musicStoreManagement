@@ -12,7 +12,7 @@ console.log(brandInput);
 console.log(priceInput);
 console.log(quantityInput);
 console.log(descInput);
-function update(id){
+function edit(id){
     const instrumentId = document.getElementById(`instrument-${id}`);
     console.log(instrumentId);
     const instrumentName = instrumentId.querySelector(`#instrument-name`).getAttribute("data-name");
@@ -20,7 +20,7 @@ function update(id){
     const instrumentCategory = instrumentId.querySelector("#category").getAttribute("data-category");
     const instrumentPrice = instrumentId.querySelector("#price").getAttribute("data-price");
     const instrumentQuantity = instrumentId.querySelector("#quantity").getAttribute("data-quantity");
-    const instrumentDesc = instrumentId.querySelector("#desc").getAttribute("data-quantity");
+    const instrumentDesc = instrumentId.querySelector("#desc").getAttribute("data-description");
 
     
 
@@ -31,6 +31,6 @@ function update(id){
     brandInput.value = instrumentBrand;
     priceInput.value = instrumentPrice;
     quantityInput.value = instrumentQuantity;
-    descInput.value = instrumentDesc
+    descInput.value = instrumentDesc;
 
 }

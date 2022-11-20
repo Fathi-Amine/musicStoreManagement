@@ -1,11 +1,11 @@
 <section>
                      <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#operationModal">
                     Add Instrument
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="operationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                         <div class="modal-header">
@@ -50,13 +50,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="instrumentDescription" class="form-label">Description</label>
-                                <input type="number" class="form-control" name="instrumentDescription" id="instrumentDescription">
+                                <textarea type="text" class="form-control" name="instrumentDescription" id="instrumentDescription"></textarea>
                             </div>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" name="addInstrument">Save changes</button>
-                                <button type="submit" class="btn btn-danger" name="update">Update changes</button>
-                                <button type="submit" class="btn btn-danger" name="delete" >Delete changes</button>
+                                <button type="submit" class="btn btn-primary" name="addInstrument">Save</button>
+                                <button type="submit" class="btn btn-danger" name="update">Update</button>
+                                <button type="submit" class="btn btn-danger" name="delete" >Delete</button>
 
                             </div>
                         </form>
