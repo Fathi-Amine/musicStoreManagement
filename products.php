@@ -1,14 +1,14 @@
 <?php
 include "workplaceHead.php";
 ?>
-<section class="container-fluid">
+<section class="container-fluid mt-3">
     <div class="cards-container">
         
             <?php
                 $instruments = getProducts();
                 foreach($instruments as $instrument):?>
-                    <div class="content-card" id="instrument-<?=$instrument["id"]?>">
-                        <div class="top-half" style="background-image: url(assets/polygon-group-StUN27yM1mo-unsplash.jpg); background-size: cover; background-repeat: no-repeat; background-position: center;">
+                    <div class="content-card rounded" id="instrument-<?=$instrument["id"]?>">
+                        <div class="top-half" style="background-color:white;background-image: url(<?=$instrument["instrument_img"]?>); background-size: cover; background-repeat: no-repeat; background-position: center;">
                             <!-- <img src="<?=$instrument["instrument_img"]?>" alt="" > -->
                         </div>
                         <div class="bottom-half">
@@ -100,6 +100,11 @@ include "workplaceHead.php";
         </div>
     </div>
 </section>
+<div class="text-center mt-3">
+    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#operationModal">
+        Add Instrument
+    </button>
+</div>
                 
 <?php
     include "workplaceFooter.php"

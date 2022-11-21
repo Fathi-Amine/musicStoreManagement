@@ -18,17 +18,14 @@ if(!isset($_SESSION['firstName'])){
                     <div class="collapse navbar-collapse mt-5" id="nav">
                     <ul class="navbar-nav flex-column justify-content-center me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                        <a class="nav-link active" href="#">Dashboard</a>
+                        <a class="nav-link active" href="dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
-                        </li>
-                        <li class="nav-item">
-                        <a class="nav-link" href="#">Profile</a>
+                        <a class="nav-link" href="products.php">Products</a>
                         </li>
 
                         <li class="nav-item">
-                        <a href="logout.php" class="nav-link btn btn-outline-light">Log out</a>
+                        <a href="logout.php" class="nav-link btn btn-outline-danger mt-3">Log out</a>
                         </li>
                     </ul>
                     </div>

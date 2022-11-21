@@ -85,26 +85,52 @@ function login(){
 
     $userEmail = validateInputs($_POST["userEmail"]);
     $password = validateInputs($_POST["password"]);
+    $pass_query = "SELECT user_password FROM `admin` WHERE email = '$userEmail'";
+    $pass_req = mysqli_query($conn, $pass_query);
+    $reg_pass = mysqli_num_rows($pass_req);
+    
+    
 
-    $userinfo_query = "SELECT * FROM `admin` WHERE email = '$userEmail' AND user_password = '$password'";
-    $res = mysqli_query($conn, $userinfo_query);
-    $data = mysqli_fetch_assoc($res);
-    $_SESSION["userId"] = $data["id"];
-    $_SESSION["userImg"] = $data["img"];
-    $_SESSION["lastName"] = $data["last_name"];
-    $_SESSION["firstName"] = $data["first_name"];
-    $_SESSION["userEmail"] = $data["email"];
-    $_SESSION["useraddress"] = $data["address"];
-    $_SESSION["userCity"] = $data["city"];
-    $_SESSION["userZip"] = $data["zip"];
-    $_SESSION["user"] = $data["storeName"];
-    header("location: dashboard.php");
-}
+    if($reg_pass == 0){
+        $_SESSION["Incorrect"] = "Invalid user info please try again";
+        header("location: login.php");
+    }else{
+        $pass_query = "SELECT user_password FROM `admin` WHERE user_password = '$password'";
+        $pass_req = mysqli_query($conn, $pass_query);
+        $reg_pass = mysqli_num_rows($pass_req);
+        if($reg_pass == 0){
+            $_SESSION["Incorrect"] = "Wrong Password info please try again";
+            header("location: login.php");
+        }else{
+            $userinfo_query = "SELECT * FROM `admin` WHERE email = '$userEmail' AND user_password = '$password'";
+            $res = mysqli_query($conn, $userinfo_query);
+            $data = mysqli_fetch_assoc($res);
+            $_SESSION["userId"] = $data["id"];
+            $_SESSION["userImg"] = $data["img"];
+            $_SESSION["lastName"] = $data["last_name"];
+            $_SESSION["firstName"] = $data["first_name"];
+            $_SESSION["userEmail"] = $data["email"];
+            $_SESSION["useraddress"] = $data["address"];
+            $_SESSION["userCity"] = $data["city"];
+            $_SESSION["userZip"] = $data["zip"];
+            $_SESSION["user"] = $data["storeName"];
+            header("location: dashboard.php");
+        }
+
+       
+    }
+    }
+
+
+
+    
 
 function lastAdded(){
     global $conn;
 
-    $last_added_query = "SELECT * FROM `instruments` ORDER BY created_date DESC LIMIT 4";
+    $logger = $_SESSION["userId"];
+    $last_added_query = "SELECT instruments.*,categories.name AS instrumentCategory FROM `instruments` 
+    INNER JOIN categories ON categories.id = instruments.category WHERE id_admin = '$logger' ORDER BY created_date DESC LIMIT 4";
     $res = mysqli_query($conn, $last_added_query);
     $instruments = mysqli_fetch_all($res,MYSQLI_ASSOC);
     return $instruments;
@@ -145,6 +171,7 @@ function addInstrument(){
 function updateInstrument(){
     GLOBAL $conn;
     $instrumentId = $_POST["instrumentId"];
+
     $instrumentName = validateInputs($_POST["instrumentName"]);
     $instrumentCategory = validateInputs($_POST["category"]);
     $instrumentBrand = validateInputs($_POST["instrumentBrand"]);
@@ -152,9 +179,25 @@ function updateInstrument(){
     $instrumentQuantity = validateInputs($_POST["instrumentQuantity"]);
     $instrumentDescription = validateInputs($_POST["instrumentDescription"]);
 
-    $sql="UPDATE `instruments` SET `instrument_name`='$instrumentName',`brand`='$instrumentBrand',`category`='$instrumentCategory',`price`='$instrumentPrice',`quantity`='$instrumentQuantity',`description`='$instrumentDescription' WHERE id='$instrumentId'";
+    $instrumentImg = $_FILES["instrumentImg"];
+    $instrumentImg_dir = '';
+
+    if(!empty($instrumentImg["name"])){
+        $img_query = "SELECT instrument_img FROM instruments WHERE id = '$instrumentId'";
+        $res = mysqli_query($conn, $img_query);
+        $img = mysqli_fetch_row($res);
+        unlink($img[0]);
+        $instrumentImg_dir = 'assets/'.generateName(10).'/'.$instrumentImg['name'];
+        mkdir(dirname($instrumentImg_dir));
+        move_uploaded_file($instrumentImg["tmp_name"], $instrumentImg_dir);
+        $sql="UPDATE `instruments` SET `instrument_name`='$instrumentName',`instrument_img`='$instrumentImg_dir',`brand`='$instrumentBrand',`category`='$instrumentCategory',`price`='$instrumentPrice',`quantity`='$instrumentQuantity',`description`='$instrumentDescription' WHERE id='$instrumentId'";
+    }else{
+        $sql="UPDATE `instruments` SET `instrument_name`='$instrumentName',`brand`='$instrumentBrand',`category`='$instrumentCategory',`price`='$instrumentPrice',`quantity`='$instrumentQuantity',`description`='$instrumentDescription' WHERE id='$instrumentId'";
+    }
+
+
     $res = mysqli_query($conn, $sql);
-    header("location: dashboard.php");
+    header("location: products.php");
 }
 function deleteInstrument(){
     global $conn;
@@ -184,5 +227,47 @@ function getProducts(){
     return $instruments;
 }
 
+function totalProducts(){
+
+    global $conn;
+    $userId=$_SESSION['userId'];
+    $prod_query = "SELECT * FROM instruments WHERE id_admin = '$userId'";
+    $res = mysqli_query($conn, $prod_query);
+    $totalProds = mysqli_num_rows($res);
+    return $totalProds;
+}
+
+function stockValue(){
+    global $conn;
+    $userId=$_SESSION['userId'];
+    $stock_value_query = "SELECT price, quantity FROM instruments WHERE id_admin = '$userId'";
+    $res = mysqli_query($conn, $stock_value_query);
+    $stock_value_arr = mysqli_fetch_all($res,MYSQLI_ASSOC);
+    $stock_val = 0;
+    foreach($stock_value_arr as $product){
+        $stock_val += $product["price"] * $product["quantity"];
+    }
+    return $stock_val;
+}
+
+function expensiveProd(){
+
+    global $conn;
+    $userId=$_SESSION['userId'];
+    $expensive_query = "SELECT max(price) FROM instruments WHERE id_admin = '$userId'";
+    $res = mysqli_query($conn, $expensive_query);
+    $expensive_product = mysqli_fetch_row($res);
+    return $expensive_product;
+}
+
+function cheapestProd(){
+
+    global $conn;
+    $userId=$_SESSION['userId'];
+    $cheap_query = "SELECT min(price) FROM instruments WHERE id_admin = '$userId'";
+    $res = mysqli_query($conn, $cheap_query);
+    $cheapest_product = mysqli_fetch_row($res);
+    return $cheapest_product;
+}
 
 ?>

@@ -1,8 +1,8 @@
 <section>
                      <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#operationModal">
+                    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#operationModal">
                     Add Instrument
-                    </button>
+                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade" id="operationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

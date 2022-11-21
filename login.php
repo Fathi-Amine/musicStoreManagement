@@ -1,6 +1,7 @@
 <?php
 include "header.php";
 include "nav.php";
+session_start();
 ?>
 
 <div class="container mt-5 signup-sec" >
@@ -10,8 +11,17 @@ include "nav.php";
                 <img src="assets/Logo.png" class="logo" alt="">
             </div>
             <h2 class="mt-5">Compose your store.</h2>
-            <p class="intro-text mt-3">This is the initial information about your business.
-                You can change it anytime</p>
+            <p class="intro-text mt-3">Here you log in to your account</p>
+            <?php if (isset($_SESSION['Incorrect'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show">
+                <strong>Failure</strong>
+                <?php 
+                    echo $_SESSION['Incorrect']; 
+                    unset($_SESSION['Incorrect']);
+                ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></span>
+            </div>
+			<?php endif ?>
             <form action="scripts.php" method="POST">
                 <div class="form-group mt-3">
                     <input type="email" class="form-control" name="userEmail" id="email" placeholder="Email">
@@ -21,7 +31,7 @@ include "nav.php";
                 </div>
                 <div class="d-flex align-items-center mt-3">
                     <a href="#" class="col-md-4 align-middle">< go back</a>
-                    <button type="submit" name="logIn" class="btn btn-dark btn-lg ms-auto align-self-center">Sign Up</button>
+                    <button type="submit" name="logIn" class="btn btn-dark btn-lg ms-auto align-self-center">Log in</button>
                 </div>
                 </form>
         </div>

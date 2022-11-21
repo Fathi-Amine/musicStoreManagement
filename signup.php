@@ -1,6 +1,7 @@
 <?php
 include "header.php";
 include "nav.php";
+session_start();
 ?>
 <div class="container mt-5 signup-sec" >
     <div class="row justify-content-center">
@@ -9,11 +10,11 @@ include "nav.php";
                 <img src="assets/Logo.png" class="logo" alt="">
             </div>
             <?php if (isset($_SESSION['inputError'])): ?>
-				<div class="alert alert-danger alert-dismissible fade show">
-				<strong>Failure</strong>
+				<div class="alert alert-danger alert-dismissible fade show mt-2">
+				    <strong>Failure</strong>
 					<?php 
 						echo $_SESSION['inputError']; 
-						unset($_SESSION['inputError']);
+						 unset($_SESSION['inputError']);
 					?>
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></span>
 				</div>
@@ -21,36 +22,36 @@ include "nav.php";
             <h2 class="mt-5">Compose your store.</h2>
             <p class="intro-text mt-3">This is the initial information about your business.
                 You can change it anytime</p>
-            <form action="scripts.php" method="POST">
+            <form data-parsley-validate action="scripts.php" method="POST">
                 <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="storeName"id="storeName" placeholder="Store name">
+                    <input pattern="^[a-zA-Z\s]+$" type="text" class="form-control" name="storeName"id="storeName" placeholder="Store name" required>
                 </div>
             <div class="row mt-3 gap-1">
                     <div class="form-group col-lg">
-                    <input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+                    <input pattern="^[a-zA-Z\s]+$"type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" required>
                     </div>
                     <div class="form-group col-lg">
-                    <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+                    <input pattern="^[a-zA-Z\s]+$" type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" required>
                     </div>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    <input pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[a-z]{2,4}$" type="email" class="form-control" name="email" id="email" placeholder="Email" required>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="password" class="form-control" name="confirmPass" id="conPassword" placeholder="Confirm Password">
+                    <input data-parsley-equalto="#password" type="password" class="form-control" name="confirmPass" id="conPassword" placeholder="Confirm Password" required>
                 </div>
                 <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Address 1">
+                    <input type="text" class="form-control" name="address" id="inputAddress" placeholder="Address 1" required>
                 </div>
                 <div class="row mt-3">
                     <div class="form-group col-md-6">
-                    <input type="text" class="form-control" name="city" id="inputCity" placeholder="City">
+                    <input pattern="^[a-zA-Z\s]+$" type="text" class="form-control" name="city" id="inputCity" placeholder="City" required>
                     </div>
                     <div class="form-group col-md-6">
-                    <input type="number" class="form-control" name="zip" id="inputZip" placeholder="Zip code">
+                    <input data-parsley-type="digits" type="number" class="form-control" name="zip" id="inputZip" placeholder="Zip code" required>
                     </div>
                 </div>
                 <div class="d-flex align-items-center mt-3">

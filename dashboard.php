@@ -1,5 +1,6 @@
 <?php
 include "workplaceHead.php";
+
 ?>
 
 <section class="container-fluid mt-4">
@@ -9,7 +10,12 @@ include "workplaceHead.php";
             <div class="card-body">
                 <ul class="card-list p-0">
                     <li class="list-group-item"><img src="assets/wallet.png" class="box-icon"alt=""></li>
-                    <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block">$12,345.00</h3></li>
+                    <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block text-dark">
+                        <?php
+                            $stock_worth = stockValue();
+                            echo '$'.$stock_worth;
+                        ?>
+                    </h3></li>
                     <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Stock value</h3></li>
                 </ul>
             </div>
@@ -19,8 +25,13 @@ include "workplaceHead.php";
                 <div class="card-body">
                     <ul class="card-list p-0">
                         <li class="list-group-item"><img src="assets/wallet.png" class="box-icon"alt=""></li>
-                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block">$12,345.00</h3></li>
-                        <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Stock value</h3></li>
+                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block text-dark">
+                            <?php
+                                $total = totalProducts();
+                                echo $total;
+                            ?>
+                        </h3></li>
+                        <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Total Products</h3></li>
                     </ul>
                 </div>
             </div>
@@ -29,8 +40,15 @@ include "workplaceHead.php";
                 <div class="card-body">
                     <ul class="card-list p-0">
                         <li class="list-group-item"><img src="assets/wallet.png" class="box-icon"alt=""></li>
-                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block">$12,345.00</h3></li>
-                        <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Stock value</h3></li>
+                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block text-dark">
+                        <?php
+                            // $expens_prod = expensiveProd();
+                            // echo $expens_prod;
+                            $expens_prod = expensiveProd();
+                            echo $expens_prod[0];
+                        ?>
+                        </h3></li>
+                        <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Highest Price</h3></li>
                     </ul>
                 </div>
             </div>
@@ -39,7 +57,12 @@ include "workplaceHead.php";
                 <div class="card-body">
                     <ul class="card-list p-0">
                         <li class="list-group-item"><img src="assets/wallet.png" class="box-icon"alt=""></li>
-                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block">$12,345.00</h3></li>
+                        <li class="list-group-item"><h3 class="fw-bolder mt-3 mb-0 d-inline-block text-dark">
+                            <?php
+                                $cheap = cheapestProd();
+                                echo $cheap[0];
+                            ?>
+                        </h3></li>
                         <li class="list-group-item"><h5 class="mt-3 mb-0 d-inline-block">Stock value</h3></li>
                     </ul>
                 </div>
@@ -53,9 +76,11 @@ include "workplaceHead.php";
             <thead>
                 <tr>
                     <th scope="col">image</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
-                    <th scope="col">Handle</th>
+                    <th scope="col">Instrument</th>
+                    <th scope="col">CAtegory</th>
+                    <th scope="col">Creation Date</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,12 +95,12 @@ include "workplaceHead.php";
                             </div>
                         </td>
                         <td id="instrument-name" data-name="<?=$prod["instrument_name"]?>" class="align-middle"><?=$prod["instrument_name"]?></td>
-                        <td id="category" data-category="<?=$prod["category"]?>" class="align-middle"><?=$prod["category"]?></td>
+                        <td id="category" data-category="<?=$prod["category"]?>" class="align-middle"><?=$prod["instrumentCategory"]?></td>
                         <td class="align-middle"><?=$prod["created_date"]?></td>
                         <td id="price" data-price="<?=$prod["price"]?>" class="align-middle"><?=$prod["price"]?></td>
                         <td id="quantity" data-quantity="<?=$prod["quantity"]?>" class="align-middle"><?=$prod["quantity"]?></td>
                         <td class="align-middle">
-                            <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal" onclick="location.href='scripts.php?id=<?php echo $prod['id'] ?>'">Delete</button>
+                            <a href="products.php" class="btn btn-sm btn-dark" >View More</button>
                             
                         </td>
                     </tr>
@@ -86,6 +111,11 @@ include "workplaceHead.php";
     </div>
     
 </section>
+<div class="text-center">
+    <button type="button" class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#operationModal">
+        Add Instrument
+    </button>
+</div>
                 
 <?php
     include "workplaceFooter.php"
